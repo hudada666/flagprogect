@@ -22,19 +22,21 @@ import org.springframework.stereotype.Component;
 public class HttpClientUtil {
 
 
-    public void postRequest(String url, Map<String, String> param) {
+    public String postRequest(String url, Map<String, String> param) {
 
         //此处封装json数据
         JSONObject jsonData = JSONObject.fromObject(param); ;
         //调用工具类中的方法，传入url以及json数据进行推送
         try {
             String bd = sendPut(url, jsonData, "UTF-8");
-            JSONObject ob = JSONObject.fromObject(bd);; //获取对方返回的数据
+            //JSONObject ob = JSONObject.fromObject(bd);; //获取对方返回的数据
             //String ss = ob.getString("data");
+            return bd;
 
         } catch (ParseException | IOException e) {
             e.printStackTrace();
         }
+        return url;
     }
     /**
      * HttpClient 推送数据
