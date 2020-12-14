@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -18,7 +17,6 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Component;
 
-import javax.xml.crypto.Data;
 
 /**
  * auth:huzhonglin
@@ -38,18 +36,28 @@ public class HttpClientUtil {
         String data = format.format(new Date()).trim();
         int randomData = ((int)((Math.random()*9+1)*100000));
         appendMap1.put("uniqueld",data + randomData);
+
         param.remove("url");
-        param.put("termid","190002s5Y");
-        param.put("boeorgid","192994");
-        param.put("opname","韩朦");
-        param.put("opid","190002AO9");
-        appendMap1.putAll(param);
-        System.err.println(appendMap1.toString());
+
+        Map<String,String> appendMap2 = new LinkedHashMap<String,String>();
+        appendMap2.put("termid","190002s5Y");
+        appendMap2.put("boeorgid","192994");
+        appendMap2.put("opname","韩朦");
+        appendMap2.put("opid","190002AO9");
+
         //此处封装json数据
-        JSONObject jsonData = JSONObject.fromObject(appendMap1); ;
+        JSONObject jsonData1 = JSONObject.fromObject(appendMap1);
+        JSONObject jsonData2 = JSONObject.fromObject(param);
+        JSONObject jsonData3 = JSONObject.fromObject(appendMap2);
+        String jsonStrHead = jsonData1.toString();
+        String jsonStrParan = jsonData2.toString();
+        String jsonStrTail = jsonData3.toString();
+        String jsonStrMix = jsonStrHead.substring(0,jsonStrHead.length() - 1) + "," + "\"data\":" + "{" + "\"pets\":" +
+                "{" + "\"flowdata\":" + jsonStrParan + "," + "\"pub\":" + jsonStrTail + "}}}";
+        JSONObject jsonStrFina=JSONObject.fromObject(jsonStrMix);
         //调用工具类中的方法，传入url以及json数据进行推送
         try {
-            String bd = sendPut(url, jsonData, "UTF-8");
+            String bd = sendPut(url, jsonStrFina, "UTF-8");
             //JSONObject ob = JSONObject.fromObject(bd);; //获取对方返回的数据
             //String ss = ob.getString("data");
             return bd;
