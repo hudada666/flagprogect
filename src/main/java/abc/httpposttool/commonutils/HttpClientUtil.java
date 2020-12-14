@@ -1,6 +1,10 @@
 package abc.httpposttool.commonutils;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import net.sf.json.JSONObject;
@@ -14,6 +18,8 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Component;
 
+import javax.xml.crypto.Data;
+
 /**
  * auth:huzhonglin
  * data:2020.12.13
@@ -22,12 +28,25 @@ import org.springframework.stereotype.Component;
 public class HttpClientUtil {
 
 
-    public String postRequest(String url, Map<String, String> param) {
-
-         param.remove("url");
-         System.err.println(param.toString());
+    public String postRequest(String url, Map<String, String> param) throws java.text.ParseException {
+        param.remove("1");
+        Map<String,String> appendMap1 = new LinkedHashMap<String,String>();
+        appendMap1.put("cityCode","19");
+        appendMap1.put("channelCode","11");
+        appendMap1.put("msgType","01");
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMddhhmmss");
+        String data = format.format(new Date()).trim();
+        int randomData = ((int)((Math.random()*9+1)*100000));
+        appendMap1.put("uniqueld",data + randomData);
+        param.remove("url");
+        param.put("termid","190002s5Y");
+        param.put("boeorgid","192994");
+        param.put("opname","韩朦");
+        param.put("opid","190002AO9");
+        appendMap1.putAll(param);
+        System.err.println(appendMap1.toString());
         //此处封装json数据
-        JSONObject jsonData = JSONObject.fromObject(param); ;
+        JSONObject jsonData = JSONObject.fromObject(appendMap1); ;
         //调用工具类中的方法，传入url以及json数据进行推送
         try {
             String bd = sendPut(url, jsonData, "UTF-8");
