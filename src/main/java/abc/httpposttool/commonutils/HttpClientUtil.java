@@ -24,6 +24,8 @@ public class HttpClientUtil {
 
     public String postRequest(String url, Map<String, String> param) {
 
+         param.remove("url");
+         System.err.println(param.toString());
         //此处封装json数据
         JSONObject jsonData = JSONObject.fromObject(param); ;
         //调用工具类中的方法，传入url以及json数据进行推送
