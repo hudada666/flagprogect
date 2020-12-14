@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 public class HttpClientUtil {
 
 
-    public void postRequest(String url, Map<String, Object> param) {
+    public void postRequest(String url, Map<String, String> param) {
 
         //此处封装json数据
         JSONObject jsonData = JSONObject.fromObject(param); ;
