@@ -44,7 +44,7 @@ public class HttpClientUtil {
      * @return String
      */
     public static String sendPut(String url, JSONObject putData, String encoding) throws ParseException, IOException {
-        String body = "";
+        String result = "";
         System.err.println(putData.toString());//打印了一下我推送的json数据
         CloseableHttpResponse response = null;
         CloseableHttpClient client = HttpClients.createDefault();
@@ -60,7 +60,7 @@ public class HttpClientUtil {
             //通过response中的getEntity()方法获取返回值
             HttpEntity entity = response.getEntity();
             if (entity != null) {
-                body = EntityUtils.toString(entity, encoding);
+                result = EntityUtils.toString(entity, encoding);
             }
         } catch (Exception e) {
             // TODO: handle exception
@@ -72,8 +72,8 @@ public class HttpClientUtil {
             }
         }
 
-        System.err.println("body:" + body);
-        return body;
+        System.err.println("result:" + result);
+        return result;
     }
 
 }
