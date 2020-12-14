@@ -14,6 +14,10 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Component;
 
+/**
+ * auth:huzhonglin
+ * data:2020.12.13
+ */
 @Component("httpClientUtil")
 public class HttpClientUtil {
 
