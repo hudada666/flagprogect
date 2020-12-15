@@ -86,12 +86,22 @@ public class HttpClientUtil {
         httpPost.setEntity(new StringEntity(putData.toString(), Charset.forName("UTF-8")));
         try {
             response = client.execute(httpPost);
-            System.err.println("status" + response.getStatusLine().getStatusCode());
-
-            //通过response中的getEntity()方法获取返回值
-            HttpEntity entity = response.getEntity();
-            if (entity != null) {
-                result = EntityUtils.toString(entity, encoding);
+            if(response.getStatusLine().getStatusCode() == 200){
+                System.err.println("交易成功" );
+                System.err.println("status:" + response.getStatusLine().getStatusCode());
+                //通过response中的getEntity()方法获取返回值
+                HttpEntity entity = response.getEntity();
+                if (entity != null) {
+                    result = EntityUtils.toString(entity, encoding);
+                }
+            }else{
+                System.err.println("交易失败" );
+                System.err.println("status:" + response.getStatusLine().getStatusCode());
+                //通过response中的getEntity()方法获取返回值
+                HttpEntity entity = response.getEntity();
+                if (entity != null) {
+                    result = EntityUtils.toString(entity, encoding);
+                }
             }
         } catch (Exception e) {
             // TODO: handle exception
@@ -99,7 +109,10 @@ public class HttpClientUtil {
         } finally {
             httpPost.abort();
             if (response != null) {
-                EntityUtils.consumeQuietly(response.getEntity());
+                response.close();
+            }
+            if(client != null){
+                client.close();
             }
         }
 
