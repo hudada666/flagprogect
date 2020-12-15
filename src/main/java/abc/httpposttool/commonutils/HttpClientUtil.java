@@ -46,6 +46,7 @@ public class HttpClientUtil {
         String jsonStrTail = jsonDataAft.toString();
         String jsonStrMix = jsonStrHead.substring(0,jsonStrHead.length() - 1) + "," + "\"data\":" + "{" + "\"pets\":" +
                 "{" + "\"flowdata\":" + jsonStrPrv + "," + "\"pub\":" + jsonStrTail + "}}}";
+        entity.setReqTxt(jsonStrMix);
         JSONObject jsonStrFina=JSONObject.fromObject(jsonStrMix);
         //调用工具类中的方法，传入url以及json数据进行推送
         try {
