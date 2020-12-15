@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import abc.httpposttool.entity.ExcelEntity;
 import net.sf.json.JSONObject;
 import org.apache.http.HttpEntity;
 import org.apache.http.ParseException;
@@ -26,34 +27,25 @@ import org.springframework.stereotype.Component;
 public class HttpClientUtil {
 
 
-    public String postRequest(String url, Map<String, String> param) throws java.text.ParseException {
-        param.remove("1");
+    public String postRequest(ExcelEntity entity) throws java.text.ParseException {
+        //获取url
+        String url = entity.getUrl();
+        //uniqueld:年月日时分秒+6位随机数
         Map<String,String> appendMap1 = new LinkedHashMap<String,String>();
-        appendMap1.put("cityCode","19");
-        appendMap1.put("channelCode","11");
-        appendMap1.put("msgType","01");
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMddhhmmss");
         String data = format.format(new Date()).trim();
         int randomData = ((int)((Math.random()*9+1)*100000));
-        appendMap1.put("uniqueld",data + randomData);
-
-        param.remove("url");
-
-        Map<String,String> appendMap2 = new LinkedHashMap<String,String>();
-        appendMap2.put("termid","190002s5Y");
-        appendMap2.put("boeorgid","192994");
-        appendMap2.put("opname","韩朦");
-        appendMap2.put("opid","190002AO9");
+        entity.getPubInfoPre().put("uniqueld",data + randomData);
 
         //此处封装json数据
-        JSONObject jsonData1 = JSONObject.fromObject(appendMap1);
-        JSONObject jsonData2 = JSONObject.fromObject(param);
-        JSONObject jsonData3 = JSONObject.fromObject(appendMap2);
-        String jsonStrHead = jsonData1.toString();
-        String jsonStrParan = jsonData2.toString();
-        String jsonStrTail = jsonData3.toString();
+        JSONObject jsonDataPre = JSONObject.fromObject(entity.getPubInfoPre());
+        JSONObject jsonDataPrv = JSONObject.fromObject(entity.getPrvInfo());
+        JSONObject jsonDataAft = JSONObject.fromObject(entity.getPubInfoAft());
+        String jsonStrHead = jsonDataPre.toString();
+        String jsonStrPrv = jsonDataPrv.toString();
+        String jsonStrTail = jsonDataAft.toString();
         String jsonStrMix = jsonStrHead.substring(0,jsonStrHead.length() - 1) + "," + "\"data\":" + "{" + "\"pets\":" +
-                "{" + "\"flowdata\":" + jsonStrParan + "," + "\"pub\":" + jsonStrTail + "}}}";
+                "{" + "\"flowdata\":" + jsonStrPrv + "," + "\"pub\":" + jsonStrTail + "}}}";
         JSONObject jsonStrFina=JSONObject.fromObject(jsonStrMix);
         //调用工具类中的方法，传入url以及json数据进行推送
         try {
@@ -76,7 +68,8 @@ public class HttpClientUtil {
      */
     public static String sendPut(String url, JSONObject putData, String encoding) throws ParseException, IOException {
         String result = "";
-        System.err.println(putData.toString());//打印了一下我推送的json数据
+        //打印了一下我推送的json数据
+        System.err.println(putData.toString());
         CloseableHttpResponse response = null;
         CloseableHttpClient client = HttpClients.createDefault();
 
