@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
 public class HttpClientUtil {
 
 
-    public String postRequest(ExcelEntity entity) throws java.text.ParseException {
+    public ExcelEntity postRequest(ExcelEntity entity) throws java.text.ParseException {
         //获取url
         String url = entity.getUrl();
         //uniqueld:年月日时分秒+6位随机数
@@ -53,12 +53,12 @@ public class HttpClientUtil {
             String bd = sendPut(url, jsonStrFina, "UTF-8");
             //JSONObject ob = JSONObject.fromObject(bd);; //获取对方返回的数据
             //String ss = ob.getString("data");
-            return bd;
+            entity.setRespTxt(bd);
 
         } catch (ParseException | IOException e) {
             e.printStackTrace();
         }
-        return url;
+        return entity;
     }
     /**
      * HttpClient 推送数据
