@@ -16,6 +16,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 
@@ -28,8 +30,10 @@ public class HttpClientUtil {
 
 
     public ExcelEntity postRequest(ExcelEntity entity) throws java.text.ParseException {
+        Logger log = LoggerFactory.getLogger(HttpClientUtil.class);
         //获取url
         String url = entity.getUrl();
+        log.info("url:" + url);
         //uniqueld:年月日时分秒+6位随机数
         Map<String,String> appendMap1 = new LinkedHashMap<String,String>();
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMddhhmmss");
@@ -39,20 +43,25 @@ public class HttpClientUtil {
 
         //此处封装json数据
         JSONObject jsonDataPre = JSONObject.fromObject(entity.getPubInfoPre());
+        log.info("jsonDataPre:" + jsonDataPre);
         JSONObject jsonDataPrv = JSONObject.fromObject(entity.getPrvInfo());
+        log.info("jsonDataPrv:" + jsonDataPrv);
         JSONObject jsonDataAft = JSONObject.fromObject(entity.getPubInfoAft());
+        log.info("jsonDataAft:" + jsonDataAft);
         String jsonStrHead = jsonDataPre.toString();
         String jsonStrPrv = jsonDataPrv.toString();
         String jsonStrTail = jsonDataAft.toString();
         String jsonStrMix = jsonStrHead.substring(0,jsonStrHead.length() - 1) + "," + "\"data\":" + "{" + "\"pets\":" +
                 "{" + "\"flowdata\":" + jsonStrPrv + "," + "\"pub\":" + jsonStrTail + "}}}";
         entity.setReqTxt(jsonStrMix);
+        //打印了一下我推送的json数据
+        log.info("发送报文:" + jsonStrMix);
         JSONObject jsonStrFina=JSONObject.fromObject(jsonStrMix);
         //调用工具类中的方法，传入url以及json数据进行推送
         try {
             String bd = sendPut(url, jsonStrFina, "UTF-8");
-            //JSONObject ob = JSONObject.fromObject(bd);; //获取对方返回的数据
-            //String ss = ob.getString("data");
+            //打印了一下返回的json数据
+            log.info("返回报文:" + bd);
             entity.setRespTxt(bd);
 
         } catch (ParseException | IOException e) {
@@ -68,9 +77,8 @@ public class HttpClientUtil {
      * @return String
      */
     public static String sendPut(String url, JSONObject putData, String encoding) throws ParseException, IOException {
+        Logger log = LoggerFactory.getLogger(HttpClientUtil.class);
         String result = "";
-        //打印了一下我推送的json数据
-        System.err.println(putData.toString());
         CloseableHttpResponse response = null;
         CloseableHttpClient client = HttpClients.createDefault();
 
@@ -80,17 +88,16 @@ public class HttpClientUtil {
         httpPost.setEntity(new StringEntity(putData.toString(), Charset.forName("UTF-8")));
         try {
             response = client.execute(httpPost);
+            log.info("response :" + response );
             if(response.getStatusLine().getStatusCode() == 200){
-                System.err.println("交易成功" );
-                System.err.println("status:" + response.getStatusLine().getStatusCode());
+                log.info("交易成功 status:" + response.getStatusLine().getStatusCode() );
                 //通过response中的getEntity()方法获取返回值
                 HttpEntity entity = response.getEntity();
                 if (entity != null) {
                     result = EntityUtils.toString(entity, encoding);
                 }
             }else{
-                System.err.println("交易失败" );
-                System.err.println("status:" + response.getStatusLine().getStatusCode());
+                log.info("交易失败 status:" + response.getStatusLine().getStatusCode() );
                 //通过response中的getEntity()方法获取返回值
                 HttpEntity entity = response.getEntity();
                 if (entity != null) {
@@ -109,8 +116,6 @@ public class HttpClientUtil {
                 client.close();
             }
         }
-
-        System.err.println("result:" + result);
         return result;
     }
 
