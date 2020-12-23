@@ -13,15 +13,8 @@ public class FlagService {
     FlagDao flagDao;
 
     @Transactional
-    public boolean tx() {
-        FlagDetails flagDetails = new FlagDetails();
-        flagDetails.setComponentCode();
-        flagDetails.setFlagCode();
-        flagDetails.setFlagStuts();
-        flagDetails.setFlagMsg();
-        flagDetails.setFlag_order();
-        flagDetails.setFlagUseTime();
-        flagDetails.setTransactionCode();
+    public boolean tx(FlagDetails flagDetails) {
+
         flagDao.insert(flagDetails);
 
         return true;

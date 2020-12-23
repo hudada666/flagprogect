@@ -15,15 +15,8 @@ public class ComponentService {
     ComponentDao componentDao;
 
     @Transactional
-    public boolean tx() {
-        ComponentDetails componentDetails = new ComponentDetails();
-        componentDetails.setTransactionCode();
-        componentDetails.setComponentCode();
-        componentDetails.setComponentOrder();
-        componentDetails.setComponentStuts();
-        componentDetails.setComponentUseTime();
+    public boolean tx(ComponentDetails componentDetails) {
         componentDao.insert(componentDetails);
-
         return true;
 
     }

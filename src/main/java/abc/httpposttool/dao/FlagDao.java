@@ -12,10 +12,9 @@ public interface FlagDao {
     @Insert("insert into flag_details(flag_code,\n" +
             "flag_stuts,\n" +
             "flag_msg,\n" +
-            "flag_order,\n" +
-            "flag_use_time,\n" +
+            "flag_time,\n" +
             "transaction_code,\n" +
             "component_code) values(#{flagCode},#{flagStuts},#{flagMsg},\n" +
-            "#{flag_order},#{flagUseTime},#{transactionCode},#{componentCode})")
+            "#{flagUseTime},#{transactionCode},#{componentCode})")
     void insert(FlagDetails flagDetails);
 }

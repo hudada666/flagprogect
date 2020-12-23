@@ -8,7 +8,6 @@ public class FlagDetails {
     String flagCode;
     String flagStuts;
     String flagMsg;
-    int flag_order;
     String flagUseTime;
     String transactionCode;
     String componentCode;
@@ -35,14 +34,6 @@ public class FlagDetails {
 
     public void setFlagMsg(String flagMsg) {
         this.flagMsg = flagMsg;
-    }
-
-    public int getFlag_order() {
-        return flag_order;
-    }
-
-    public void setFlag_order(int flag_order) {
-        this.flag_order = flag_order;
     }
 
     public String getFlagUseTime() {
@@ -75,7 +66,6 @@ public class FlagDetails {
                 "flagCode='" + flagCode + '\'' +
                 ", flagStuts='" + flagStuts + '\'' +
                 ", flagMsg='" + flagMsg + '\'' +
-                ", flag_order=" + flag_order +
                 ", flagUseTime='" + flagUseTime + '\'' +
                 ", transactionCode='" + transactionCode + '\'' +
                 ", componentCode='" + componentCode + '\'' +

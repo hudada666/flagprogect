@@ -8,17 +8,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class TransactionService {
+public class TranService {
 
     @Autowired
     TransactionDao transactionDao;
 
     @Transactional
-    public boolean tx() {
-        TransactionDetails transactionDetails = new TransactionDetails();
-        transactionDetails.setTransactionCode();
-        transactionDetails.setTransactionStuts();
-        transactionDetails.setTransactionTime();
+    public boolean tx(TransactionDetails transactionDetails) {
         transactionDao.insert(transactionDetails);
 
         return true;

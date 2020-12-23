@@ -1,5 +1,8 @@
 package abc.httpposttool.entity;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class TransactionDetails {
     //交易码
     String transactionCode;

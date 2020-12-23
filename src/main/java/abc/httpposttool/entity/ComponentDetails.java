@@ -1,5 +1,8 @@
 package abc.httpposttool.entity;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class ComponentDetails {
     //组件编码
     String componentCode;
@@ -9,8 +12,8 @@ public class ComponentDetails {
     String componentUseTime;
     //交易码
     String transactionCode;
-    //执行顺序编号
-    int componentOrder;
+    //执行时间
+    String componentTime;
 
     public String getComponentCode() {
         return componentCode;
@@ -44,12 +47,12 @@ public class ComponentDetails {
         this.transactionCode = transactionCode;
     }
 
-    public int getComponentOrder() {
-        return componentOrder;
+    public String getComponentTime() {
+        return componentTime;
     }
 
-    public void setComponentOrder(int componentOrder) {
-        this.componentOrder = componentOrder;
+    public void setComponentTime(String componentTime) {
+        this.componentTime = componentTime;
     }
 
     @Override
@@ -59,7 +62,7 @@ public class ComponentDetails {
                 ", componentStuts='" + componentStuts + '\'' +
                 ", componentUseTime='" + componentUseTime + '\'' +
                 ", transactionCode='" + transactionCode + '\'' +
-                ", componentOrder=" + componentOrder +
+                ", componentTime='" + componentTime + '\'' +
                 '}';
     }
 }
