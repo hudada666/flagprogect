@@ -15,7 +15,7 @@ import java.util.List;
 public class DomeTestService {
 
     Logger logger = LoggerFactory.getLogger("DomeTestService");
-    SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     @Autowired
     CommomUtil commomUtil;
 

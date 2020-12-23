@@ -24,7 +24,7 @@ import java.util.List;
 public class FlagDemoController {
 
     Logger logger = LoggerFactory.getLogger("FlagDemoTest");
-    SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     String trnData = format.format(new Date());
     @Autowired
     DomeTestService domeTestService;

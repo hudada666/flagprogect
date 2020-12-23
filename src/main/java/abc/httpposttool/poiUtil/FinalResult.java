@@ -47,10 +47,18 @@ public class FinalResult {
             flagDetails.setFlagUseTime(createList.getFlagData());
             flagDetails.setComponentCode(createList.getComponentCode());
             flagDetails.setTransactionCode(createList.getTransactionCode());
+            if(createList.getResponseCode() != null && !"".equals(createList.getResponseCode())){
+                flagService.tx(flagDetails);
+                if(componentDetails.getComponentStuts() != null &&
+                        !"".equals(componentDetails.getComponentStuts())){
+                    componentService.tx(componentDetails);
+                }
 
-            componentService.tx(componentDetails);
-            transactionService.tx(transactionDetails);
-            flagService.tx(flagDetails);
+                if(transactionDetails.getTransactionStuts() != null &&
+                        !"".equals(transactionDetails.getTransactionStuts())){
+                    transactionService.tx(transactionDetails);
+                }
+            }
 
         }
 
