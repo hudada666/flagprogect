@@ -6,11 +6,12 @@ import abc.httpposttool.entity.TransactionDetails;
 import abc.httpposttool.service.ComponentService;
 import abc.httpposttool.service.FlagService;
 import abc.httpposttool.service.TranService;
-import abc.httpposttool.vo.CreateList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class FinalResult {
@@ -29,38 +30,44 @@ public class FinalResult {
     FlagService flagService;
 
 
-    public void ingsertList(List list, String tranTime, String compTime, String usingTime){
+    public void ingsertList(Map<String,Object> dataContant){
 
-        for (int i = 0; i < list.size(); i++){
-            CreateList createList = (CreateList)list.get(i);
-            transactionDetails.setTransactionCode(createList.getTransactionCode());
-            transactionDetails.setTransactionTime(tranTime);
-            transactionDetails.setTransactionStuts(createList.getResponseCode());
-            componentDetails.setComponentCode(createList.getComponentCode());
-            componentDetails.setTransactionCode(createList.getTransactionCode());
-            componentDetails.setComponentStuts(createList.getResponseCode());
-            componentDetails.setComponentUseTime(usingTime);
-            componentDetails.setComponentTime(compTime);
-            flagDetails.setFlagCode(createList.getFlagCode());
-            flagDetails.setFlagStuts(createList.getResponseCode());
-            flagDetails.setFlagMsg(createList.getFlagMsg());
-            flagDetails.setFlagUseTime(createList.getFlagData());
-            flagDetails.setComponentCode(createList.getComponentCode());
-            flagDetails.setTransactionCode(createList.getTransactionCode());
-            if(createList.getResponseCode() != null && !"".equals(createList.getResponseCode())){
+        List resultList = (List) dataContant.get("resultList");
+        List compresultList = (List) dataContant.get("compresultList");
+        for (int i = 0; i < resultList.size(); i++){
+            flagDetails = (FlagDetails) resultList.get(i);
+            componentDetails = (ComponentDetails) compresultList.get(i);
+            transactionDetails.setTransactionCode(dataContant.get("strnCode").toString());
+            transactionDetails.setTransactionTime(dataContant.get("trnData").toString());
+            transactionDetails.setTransactionStuts(dataContant.get("responseCode").toString());
+            componentDetails.setComponentCode(flagDetails.getComponentCode());
+            componentDetails.setTransactionCode(flagDetails.getTransactionCode());
+            componentDetails.setComponentStuts(componentDetails.getComponentStuts());
+            componentDetails.setComponentUseTime(componentDetails.getComponentUseTime());
+            componentDetails.setComponentTime(componentDetails.getComponentTime());
+            flagDetails.setFlagCode(flagDetails.getFlagCode());
+            flagDetails.setFlagStuts("");
+            flagDetails.setFlagMsg(flagDetails.getFlagMsg());
+            flagDetails.setFlagUseTime(flagDetails.getFlagUseTime());
+            flagDetails.setComponentCode(flagDetails.getComponentCode());
+            flagDetails.setTransactionCode(flagDetails.getTransactionCode());
+            if(dataContant.get("responseCode").toString() != null && !"".equals(dataContant.get("responseCode").toString())){
                 flagService.tx(flagDetails);
                 if(componentDetails.getComponentStuts() != null &&
                         !"".equals(componentDetails.getComponentStuts())){
                     componentService.tx(componentDetails);
                 }
-
-                if(transactionDetails.getTransactionStuts() != null &&
-                        !"".equals(transactionDetails.getTransactionStuts())){
-                    transactionService.tx(transactionDetails);
-                }
             }
 
         }
+
+        if(dataContant.get("responseCode").toString() != null && !"".equals(dataContant.get("responseCode").toString())){
+            transactionDetails.setTransactionCode(dataContant.get("strnCode").toString());
+            transactionDetails.setTransactionTime(dataContant.get("trnData").toString());
+            transactionDetails.setTransactionStuts(dataContant.get("responseCode").toString());
+            transactionService.tx(transactionDetails);
+        }
+
 
     }
 
