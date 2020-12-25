@@ -33,34 +33,34 @@ public class DCompnent {
         String compRespose;
         if (appenMap.get(compCode) != null && !"".equals(appenMap.get(compCode))){
             Date data = new Date();
-            if (flagCode == "1") {
-                String msg = "桩点:交易码：" +  appenMap.get("strnCode") + " 组件：DCompnent" + " 装点信息：" + flagCode;
-                logger.info("桩点:交易码：" +  appenMap.get("strnCode") + " 组件：DCompnent" + " 装点信息：" + flagCode);
+            if (flagCode.equals("1")) {
+                String msg = "桩点:交易码：" +  dataContant.get("strnCode") + " 组件：DCompnent" + " 装点信息：" + flagCode;
+                logger.info("桩点:交易码：" +  dataContant.get("strnCode") + " 组件：DCompnent" + " 装点信息：" + flagCode);
                 dataContant = commomUtil.addMethoe(dataContant, flagCode, data.toString(), compCode, msg);
             }
 
-            if (flagCode == "2") {
-                String msg = "桩点:交易码：" +  appenMap.get("strnCode") + " 组件：DCompnent" + " 装点信息：" + flagCode;
-                logger.info("桩点:交易码：" +  appenMap.get("strnCode") + " 组件：DCompnent" + " 装点信息：" + flagCode);
+            if (flagCode.equals("2")) {
+                String msg = "桩点:交易码：" +  dataContant.get("strnCode") + " 组件：DCompnent" + " 装点信息：" + flagCode;
+                logger.info("桩点:交易码：" +  dataContant.get("strnCode") + " 组件：DCompnent" + " 装点信息：" + flagCode);
                 dataContant = commomUtil.addMethoe(dataContant, flagCode, data.toString(), compCode, msg);
             }
 
-            if (flagCode == "3") {
-                String msg = "桩点:交易码：" +  appenMap.get("strnCode") + " 组件：DCompnent" + " 装点信息：" + flagCode;
-                logger.info("桩点:交易码：" +  appenMap.get("strnCode") + " 组件：DCompnent" + " 装点信息：" + flagCode);
+            if (flagCode.equals("3")) {
+                String msg = "桩点:交易码：" +  dataContant.get("strnCode") + " 组件：DCompnent" + " 装点信息：" + flagCode;
+                logger.info("桩点:交易码：" +  dataContant.get("strnCode") + " 组件：DCompnent" + " 装点信息：" + flagCode);
                 dataContant = commomUtil.addMethoe(dataContant, flagCode, data.toString(), compCode, msg);
             }
 
-            if (flagCode == "4") {
-                String msg = "桩点:交易码：" +  appenMap.get("strnCode") + " 组件：DCompnent" + " 装点信息：" + flagCode;
-                logger.info("桩点:交易码：" +  appenMap.get("strnCode") + " 组件：DCompnent" + " 装点信息：" + flagCode);
+            if (flagCode.equals("4")) {
+                String msg = "桩点:交易码：" +  dataContant.get("strnCode") + " 组件：DCompnent" + " 装点信息：" + flagCode;
+                logger.info("桩点:交易码：" +  dataContant.get("strnCode") + " 组件：DCompnent" + " 装点信息：" + flagCode);
                 dataContant = commomUtil.addMethoe(dataContant, flagCode, data.toString(), compCode, msg);
             }
 
 
-            if (flagCode == "5") {
-                String msg = "桩点:交易码：" +  appenMap.get("strnCode") + " 组件：DCompnent" + " 装点信息：" + flagCode;
-                logger.info("桩点:交易码：" +  appenMap.get("strnCode") + " 组件：DCompnent" + " 装点信息：" + flagCode);
+            if (flagCode.equals("5")) {
+                String msg = "桩点:交易码：" +  dataContant.get("strnCode") + " 组件：DCompnent" + " 装点信息：" + flagCode;
+                logger.info("桩点:交易码：" +  dataContant.get("strnCode") + " 组件：DCompnent" + " 装点信息：" + flagCode);
                 dataContant = commomUtil.addMethoe(dataContant, flagCode, data.toString(), compCode, msg);
             }
         }
@@ -79,6 +79,8 @@ public class DCompnent {
         componentDetails.setComponentTime(compData);
         componentDetails.setComponentUseTime(useTime);
         componentDetails.setComponentStuts(compRespose);
+        compresultList.add(componentDetails);
+        dataContant.put("compresultList", compresultList);
 
         return dataContant;
 

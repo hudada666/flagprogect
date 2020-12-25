@@ -6,6 +6,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
+import java.text.NumberFormat;
 import java.util.*;
 
 @Component
@@ -42,6 +43,7 @@ public class ExportExcel {
 
     //获取excel中的数据，封装成List返回
     public Map<String,List> getExcelData(String fileName) {
+        NumberFormat nf = NumberFormat.getInstance();
         //List<ExcelEntity> sheetsData = new ArrayList<ExcelEntity>();
         Map<String,List> excelMap = new LinkedHashMap();
         Map<String,String> insideMap = new LinkedHashMap();
@@ -64,7 +66,7 @@ public class ExportExcel {
                 // 从第2行开始取
                 Row row = sheetOne.getRow(i);
                 compcellDate = row.getCell(0).toString();
-                flagcellData = row.getCell(1).toString();
+                flagcellData = nf.format(row.getCell(1).getNumericCellValue());
                 compList.add(compcellDate);
                 flsgList.add(flagcellData);
             }

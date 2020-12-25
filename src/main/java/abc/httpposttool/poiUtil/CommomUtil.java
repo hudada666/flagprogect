@@ -17,11 +17,9 @@ public class CommomUtil {
     FlagDetails createList;
 
 
-    List resultList = new LinkedList();
-
     public Map<String,Object> addMethoe(Map<String,Object> dataContant, String compCode,
-                                        String data,String  flagCode,String msg){
-        resultList = (List) dataContant.get("resultList");
+                                        String data, String flagCode, String msg){
+        List resultList = (List) dataContant.get("resultList");
         createList.setTransactionCode(dataContant.get("strnCode").toString());
         createList.setComponentCode(compCode);
         createList.setFlagUseTime(data);

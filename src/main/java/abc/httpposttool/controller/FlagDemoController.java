@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -31,6 +32,7 @@ public class FlagDemoController {
     String trnData;
 
     @RequestMapping("/comp")
+    @ResponseBody
     public void  coverTest(){
         logger.info("FlagDemoController开始执行。。。。。");
         try {
@@ -55,7 +57,7 @@ public class FlagDemoController {
                 dataContant = t1.compFlow(dataContant);
             }
 
-            if (("T1".equals(strnCode))) {
+            if (("T2".equals(strnCode))) {
                 trnData = format.format(new Date());
                 dataContant = t2.compFlowTwo(dataContant);
             }
