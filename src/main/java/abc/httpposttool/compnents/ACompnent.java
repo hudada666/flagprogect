@@ -16,8 +16,7 @@ public class ACompnent {
 
     @Autowired
     CommomUtil commomUtil;
-    @Autowired
-    ComponentDetails componentDetails;
+    ComponentDetails componentDetails = new ComponentDetails();
 
     Logger logger = LoggerFactory.getLogger("ACompnent");
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

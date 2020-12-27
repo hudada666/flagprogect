@@ -70,31 +70,4 @@ public class FlagDemoController {
 
     }
 
-
-//    Logger logger = LoggerFactory.getLogger("FlagDemoTest");
-//    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//    String trnData = format.format(new Date());
-//    @Autowired
-//    DomeTestService domeTestService;
-//    @Autowired
-//    FinalResult finalResult;
-//
-//    @RequestMapping("/dbone/{trncode}/{comcode}/{flagcode}")
-//    @ResponseBody
-//    public String dbTestOne(@PathVariable String trncode, @PathVariable String comcode,  @PathVariable String flagcode){
-//        logger.info("dbTestOne开始执行");
-//        String compData = format.format(new Date());
-//        long timeBegin=System.currentTimeMillis();
-//        try {
-//            List<CreateList> list = domeTestService.checkResult(flagcode, trncode, comcode, flagcode);
-//            long timeEnd=System.currentTimeMillis();
-//            String useTime = String.valueOf(timeEnd - timeBegin);
-//            finalResult.ingsertList(list, trnData, compData, useTime);
-//            logger.info("dbTestOne开始结束");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
-
 }

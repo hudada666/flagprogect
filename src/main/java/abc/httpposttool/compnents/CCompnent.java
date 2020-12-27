@@ -14,8 +14,7 @@ import java.util.*;
 public class CCompnent {
     @Autowired
     CommomUtil commomUtil;
-    @Autowired
-    ComponentDetails componentDetails;
+    ComponentDetails componentDetails = new ComponentDetails();
 
     Logger logger = LoggerFactory.getLogger("CCompnent");
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

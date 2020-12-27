@@ -20,6 +20,7 @@ public class CommomUtil {
     public Map<String,Object> addMethoe(Map<String,Object> dataContant, String compCode,
                                         String data, String flagCode, String msg){
         List resultList = (List) dataContant.get("resultList");
+        createList = new FlagDetails();
         createList.setTransactionCode(dataContant.get("strnCode").toString());
         createList.setComponentCode(compCode);
         createList.setFlagUseTime(data);
